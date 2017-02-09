@@ -1,53 +1,64 @@
 #Ignacio Hernandez
 #CST 205
 #Project 1 Images
+#https://github.com/ighernandez/cst205project1: Link to project.
+#used examples instructed by professor
+#Abstract: taking out the annoying photo bomber from 9 images
 
-#print("heelo world")
-# this is a comment
+
+# using pillow to import image
 from PIL import Image
 from PIL import Image
 
-def medianOdd(myList):
-    listlength = len(myList)
+
+#defined variables and made some calculations
+def MedianValueOdd(myList):
+    ListLength = len(myList)
     sortedValues = sorted(myList)
-    middleIndex = (listlength + 1)//2 - 1
+    middleIndex = (ListLength + 1)//2 - 1
     return sortedValues[middleIndex]
 
+#set up list using square brackets
 imgList = []
 
+#giving it a range using tuples
 for i in range(9):
     imgList.append(Image.open("pics/ProjectImages/" + str (i + 1) + ".png"))
     
     
 picW, picH = imgList[0].size
 
-redPixelList = []
-greenPixelList = []
-bluePixelList = []
+RedPixelList = []
+GreenPixelList = []
+BluePixelList = []
 
-myRed, myGreen, myBlue = imgList[6].getpixel((2,3))
+Red, Green, Blue = imgList[6].getpixel((2,3))
 
-print(myRed, myGreen, myBlue)
+print(Red, Green, Blue)
 
 canvas = Image.new("RGB", (picW, picH), "white")
 
+
+#giving ranges to x and y to pic widtg and to pic height
 for x in range(picW):
     for y in range(picH):
         for myImage in imgList:
-            myRed, myGreen, myBlue = myImage.getpixel((x,y))
-            redPixelList.append(myRed)
-            greenPixelList.append(myGreen)
-            bluePixelList.append(myBlue)
+            Red, Green, Blue = myImage.getpixel((x,y))
+            RedPixelList.append(Red)
+            GreenPixelList.append(Green)
+            BluePixelList.append(Blue)
             
             
-        medianRed = medianOdd(redPixelList)
-        medianGreen = medianOdd(greenPixelList)
-        medianBlue = medianOdd(bluePixelList)
+        medianRed = MedianValueOdd(RedPixelList)
+        medianGreen = MedianValueOdd(GreenPixelList)
+        medianBlue = MedianValueOdd(BluePixelList)
         
         canvas.putpixel((x,y), (medianRed, medianGreen, medianBlue))
         
-        redPixelList = []
-        greenPixelList = []
-        bluePixelList = []
+        RedPixelList = []
+        GreenPixelList = []
+        BluePixelList = []
         
-canvas.save("newpic.png")
+#saved picture as newpic2.png        
+        
+canvas.save("newpic2.png")
